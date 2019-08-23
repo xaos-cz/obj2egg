@@ -70,10 +70,8 @@ class ObjMaterial:
 
 	def isTextured(self):
 		return "map_Kd" in self.attrib
-
-	def getEggTexture(self):
-		if self.eggdiffusetexture:
-			return self.eggdiffusetexture
+	
+	def loadEggTexture(self):
 		if not self.isTextured():
 			return None
 		m = EggTexture(self.name + "_diffuse", self.get("map_Kd"))
@@ -84,10 +82,14 @@ class ObjMaterial:
 		m.setWrapV(EggTexture.WMRepeat)
 		self.eggdiffusetexture = m
 		return self.eggdiffusetexture
-
-	def getEggMaterial(self):
-		if self.eggmaterial:
-			return self.eggmaterial
+	
+	def getEggTexture(self):
+		if not self.eggdiffusetexture:
+			return self.loadEggTexture()
+		
+		return self.eggdiffusetexture
+	
+	def loadEggMaterial(self):
 		m = EggMaterial(self.name + "_mat")
 		
 		for key in ["Kd", "Ka", "Ks"]:
@@ -100,6 +102,13 @@ class ObjMaterial:
 		
 		self.eggmaterial = m
 		return self.eggmaterial
+	
+	def getEggMaterial(self):
+		if not self.eggmaterial:
+			return self.loadEggMaterial()
+		
+		return self.eggmaterial
+		
 
 class MtlFile:
 	"""an object representing all Wavefront materials in a .mtl file"""
