@@ -145,7 +145,7 @@ class MtlFile:
 					mat.put(tokens[0], int(tokens[1]))
 					continue
 				if tokens[0] in ("Kd", "Ka", "Ks", "Ke"):
-					mat.put(tokens[0], floats(tokens[1:]))
+					mat.put(tokens[0], reType(tokens[1:], float))
 					continue
 				if tokens[0] in ("map_Kd", "map_Bump", "map_Ks", "map_bump", "bump"):
 					mat.put(tokens[0], pathify(tokens[1]))
@@ -271,16 +271,16 @@ class ObjFile:
 		return self
 
 	def __newuv(self, uv):
-		self.uvs.append(floats(uv))
+		self.uvs.append(reType(uv, float))
 		return self
 
 	def __newnormal(self, normal):
-		self.normals.append(floats(normal))
+		self.normals.append(reType(normal, float))
 		return self
 
 	def __newv(self, v):
 		# capture the current metadata with vertices
-		vdata = floats(v)
+		vdata = reType(v, float)
 		mdata = (self.currentobject, self.currentgroup, self.currentmaterial)
 		vinfo = (vdata, mdata)
 		self.points.append(vinfo)
