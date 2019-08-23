@@ -63,9 +63,6 @@ class ObjMaterial:
 	def get(self, key):
 		return self.attrib[key] if key in self.attrib else None
 
-	def has_key(self, key):
-		return key in self.attrib
-
 	def isTextured(self):
 		return "map_Kd" in self.attrib
 
