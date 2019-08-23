@@ -20,10 +20,7 @@
 from panda3d.core import Vec3D, Vec4, Point3D, GlobPattern, Filename
 from panda3d.egg import EggLine, EggData, EggGroup, EggVertex, EggVertexPool, EggPolygon, EggTexture, EggMaterial
 
-import math
-import string
-import getopt
-import sys, os
+import getopt, sys, os
 
 
 def floats(float_list):
