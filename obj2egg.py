@@ -17,11 +17,15 @@
 	licensed under WTFPL (http://sam.zoy.org/wtfpl/)
 """
 
+##	Imports
+#		Panda3D Libraries
 from panda3d.core import Vec3D, Vec4, Point3D, GlobPattern, Filename
 from panda3d.egg import EggLine, EggData, EggGroup, EggVertex, EggVertexPool, EggPolygon, EggTexture, EggMaterial
 
+#		System Libraries
 import getopt, sys, os
 
+## Utility Functions
 def reType(lst, typeFunction):
 	return [typeFunction(item) for item in lst]
 
@@ -39,6 +43,7 @@ def pathify(path):
 	print("warning: can't make sense of this map file name:", orig)
 	return t
 
+## Classes
 class ObjMaterial:
 	"""a wavefront material"""
 	def __init__(self):
@@ -84,8 +89,6 @@ class ObjMaterial:
 		if self.eggmaterial:
 			return self.eggmaterial
 		m = EggMaterial(self.name + "_mat")
-		# XXX TODO: add support for specular, and obey illum setting
-		# XXX as best as we can
 		
 		for key in ["Kd", "Ka", "Ks"]:
 			with self.get(key) as rgb:
@@ -127,6 +130,7 @@ class MtlFile:
 				tokens = line.split()
 				if not tokens:
 					continue
+				
 				if verbose: print("tokens[0]:", tokens)
 				if tokens[0] == "newmtl":
 					mat = ObjMaterial()
@@ -151,6 +155,7 @@ class MtlFile:
 				if tokens[0] in ("Ni"):
 					mat.put(tokens[0], float(tokens[1]))
 					continue
+				
 				print("file \"%s\": line %d: unrecognized:" % (filename, linenumber), tokens)
 		
 		if verbose: print("%d materials" % len(self.materials), "loaded from", filename)
@@ -427,6 +432,7 @@ class ObjFile:
 					self.__polylinestoegg(egg, objname, groupname)
 		return egg
 
+## Main
 def main(argv=None):
 	if argv is None:
 		argv = sys.argv
