@@ -17,8 +17,8 @@
 	licensed under WTFPL (http://sam.zoy.org/wtfpl/)
 """
 
-from panda3d.core import *
-from panda3d.egg import *
+from panda3d.core import Vec3D, Vec4, Point3D, GlobPattern, Filename
+from panda3d.egg import EggLine, EggData, EggGroup, EggVertex, EggVertexPool, EggPolygon, EggTexture, EggMaterial
 
 import math
 import string
