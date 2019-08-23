@@ -22,14 +22,8 @@ from panda3d.egg import EggLine, EggData, EggGroup, EggVertex, EggVertexPool, Eg
 
 import getopt, sys, os
 
-
-def floats(float_list):
-	"""coerce a list of strings that represent floats into a list of floats"""
-	return [ float(number) for number in float_list ]
-
-def ints(int_list):
-	"""coerce a list of strings that represent integers into a list of integers"""
-	return [ int(number) for number in int_list ]
+def reType(lst, typeFunction):
+	return [typeFunction(item) for item in lst]
 
 
 class ObjMaterial:
