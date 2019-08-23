@@ -25,6 +25,19 @@ import getopt, sys, os
 def reType(lst, typeFunction):
 	return [typeFunction(item) for item in lst]
 
+def pathify(path):
+	if os.path.isfile(path):
+		return path
+	# if it was written on win32, it may have \'s in it, and
+	# also a full rather than relative pathname (Hexagon does this... ick)
+	orig = path
+	path = path.lower()
+	path = path.replace("\\", "/")
+	h, t = os.path.split(path)
+	if os.path.isfile(t):
+		return t
+	print("warning: can't make sense of this map file name:", orig)
+	return t
 
 class ObjMaterial:
 	"""a wavefront material"""
@@ -417,20 +430,6 @@ class ObjFile:
 					self.__polylinestoegg(egg, objname, groupname)
 		return egg
 
-def pathify(path):
-	if os.path.isfile(path):
-		return path
-	# if it was written on win32, it may have \'s in it, and
-	# also a full rather than relative pathname (Hexagon does this... ick)
-	orig = path
-	path = path.lower()
-	path = path.replace("\\", "/")
-	h, t = os.path.split(path)
-	if os.path.isfile(t):
-		return t
-	print("warning: can't make sense of this map file name:", orig)
-	return t
-	
 def main(argv=None):
 	if argv is None:
 		argv = sys.argv
